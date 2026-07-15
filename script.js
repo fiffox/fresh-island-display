@@ -33,6 +33,28 @@ function updateClock() {
     now.toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" });
 }
 
+
+function animatedWeatherIcon(code, isDay = 1) {
+  const sun = '<span class="sun-rays"></span><span class="sun-core"></span>';
+  const moon = '<span class="moon-core"></span>';
+  const cloud = '<span class="cloud-body"></span>';
+  const rain = '<span class="drop d1"></span><span class="drop d2"></span><span class="drop d3"></span>';
+  const snow = '<span class="flake f1">✦</span><span class="flake f2">✦</span><span class="flake f3">✦</span>';
+  const fog = '<span class="fog-line f1"></span><span class="fog-line f2"></span><span class="fog-line f3"></span>';
+
+  if (code === 0) return `<span class="wx-icon clear">${isDay ? sun : moon}</span>`;
+  if (code === 1 || code === 2) return `<span class="wx-icon partly">${isDay ? sun : moon}${cloud}</span>`;
+  if (code === 3) return `<span class="wx-icon cloudy">${cloud}</span>`;
+  if (code === 45 || code === 48) return `<span class="wx-icon fog">${cloud}${fog}</span>`;
+  if ([51,53,55,56,57,61,63,65,66,67,80,81,82].includes(code))
+    return `<span class="wx-icon rain">${cloud}${rain}</span>`;
+  if ([71,73,75,77,85,86].includes(code))
+    return `<span class="wx-icon snow">${cloud}${snow}</span>`;
+  if ([95,96,99].includes(code))
+    return `<span class="wx-icon storm">${cloud}<span class="bolt"></span>${rain}</span>`;
+  return `<span class="wx-icon cloudy">${cloud}</span>`;
+}
+
 function weatherInfo(code, isDay = 1) {
   if (code === 0 && !isDay) return ["Clear night", "🌙"];
   if ((code === 1 || code === 2) && !isDay) return [weatherCodes[code][0], "☁️"];
@@ -88,7 +110,7 @@ async function loadWeather() {
 
     document.getElementById("location-name").textContent = LOCATION_NAME;
     document.getElementById("current-temp").textContent = Math.round(c.temperature_2m);
-    document.getElementById("current-icon").textContent = icon;
+    document.getElementById("current-icon").innerHTML = animatedWeatherIcon(c.weather_code, c.is_day);
     document.getElementById("condition").textContent = condition;
     document.getElementById("feels-like").textContent = Math.round(c.apparent_temperature);
     document.getElementById("wind").textContent =
@@ -111,7 +133,7 @@ async function loadWeather() {
       el.innerHTML = `
         <div class="forecast-name">${d.toLocaleDateString("en-GB", {weekday:"long"})}</div>
         <div class="forecast-date">${d.toLocaleDateString("en-GB", {day:"numeric", month:"short"}).toUpperCase()}</div>
-        <div class="forecast-icon">${dayIcon}</div>
+        <div class="forecast-icon">${animatedWeatherIcon(data.daily.weather_code[i], 1)}</div>
         <div class="forecast-temps">${Math.round(data.daily.temperature_2m_max[i])}°<span class="low">${Math.round(data.daily.temperature_2m_min[i])}°</span></div>
         <div class="rain"><span>◊</span>${data.daily.precipitation_probability_max[i] ?? 0}%</div>
       `;
