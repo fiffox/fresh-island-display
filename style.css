@@ -66,8 +66,7 @@ body::after {
   max-height: 110px;
   object-fit: contain;
   object-position: left center;
-  mix-blend-mode: screen;
-  filter: contrast(1.08);
+  filter: drop-shadow(0 8px 18px rgba(0,0,0,.42));
 }
 
 .clock-block { margin-top: 38px; text-align: center; }

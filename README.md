@@ -6,7 +6,7 @@ This folder is ready to upload to GitHub Pages.
 - index.html
 - style.css
 - script.js
-- fresh-island-logo.jpg
+- fresh-island-logo.svg
 
 ## Publish with GitHub Pages
 1. Sign in to GitHub.
@@ -51,3 +51,6 @@ The background automatically changes with the live conditions:
 - a restrained lightning glow during thunderstorms
 
 Nothing is clickable and the effects are intentionally subtle for a professional clocking-in display.
+
+## Logo update
+The supplied vector logo is included with a transparent background and adjusted contrast for the dark display.
