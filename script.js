@@ -106,5 +106,5 @@ function runGlassSwish(){
 }
 
 // Immediate visual proof after loading, then every 30 seconds.
-window.setTimeout(runGlassSwish,1500);
-window.setInterval(runGlassSwish,30000);
+window.setTimeout(runGlassSwish,1000);
+window.setInterval(runGlassSwish,10000);
