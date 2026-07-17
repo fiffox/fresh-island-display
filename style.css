@@ -99,7 +99,7 @@ body.weather-night .ambient-glow{opacity:.09}
   z-index:9999;
   top:-28%;
   left:-62%;
-  width:64%;
+  width:24%;
   height:165%;
   pointer-events:none;
   opacity:0;
