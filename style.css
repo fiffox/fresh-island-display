@@ -76,53 +76,76 @@ body.weather-rain .rain-layer{opacity:.62}
 body.weather-night .stars-layer{opacity:.35}
 body.weather-night .ambient-glow{opacity:.09}
 
-/* Premium weather illustrations */
+/* Broadcast-style weather illustrations */
 .weather-image{
   display:block;
   width:1em;
   height:1em;
   object-fit:contain;
-  filter:drop-shadow(0 10px 18px rgba(0,0,0,.32));
-  animation:weatherFloat 4.5s ease-in-out infinite;
+  filter:drop-shadow(0 12px 22px rgba(0,0,0,.38));
+  animation:weatherFloat 5.2s ease-in-out infinite;
+  transform-origin:center;
 }
-.forecast-icon .weather-image{width:78px;height:78px}
-.hero-icon .weather-image{width:160px;height:160px}
+.forecast-icon .weather-image{width:84px;height:84px}
+.hero-icon .weather-image{width:176px;height:176px}
 @keyframes weatherFloat{
   0%,100%{transform:translateY(0) scale(1)}
-  50%{transform:translateY(-5px) scale(1.015)}
+  50%{transform:translateY(-4px) scale(1.012)}
 }
 
-/* Strong premium glass sweep every 30 seconds */
+/* Subtle glass reflection sweep — triggered by JavaScript */
 .glass-swish{
-  position:fixed;z-index:999;top:-28%;left:-62%;width:26%;height:165%;
-  pointer-events:none;opacity:0;transform:skewX(-20deg);
-  background:linear-gradient(90deg,
+  position:fixed;
+  z-index:9999;
+  top:-28%;
+  left:-62%;
+  width:24%;
+  height:165%;
+  pointer-events:none;
+  opacity:0;
+  transform:skewX(-18deg);
+  background:linear-gradient(
+    90deg,
     transparent 0%,
-    rgba(255,255,255,.03) 16%,
-    rgba(255,255,255,.18) 36%,
-    rgba(255,255,255,.62) 49%,
-    rgba(255,255,255,.22) 62%,
-    rgba(255,255,255,.04) 82%,
-    transparent 100%);
-  filter:blur(7px);
+    rgba(255,255,255,.015) 14%,
+    rgba(255,255,255,.065) 33%,
+    rgba(255,255,255,.22) 49%,
+    rgba(255,255,255,.08) 66%,
+    rgba(255,255,255,.018) 84%,
+    transparent 100%
+  );
+  filter:blur(9px);
   mix-blend-mode:screen;
-  box-shadow:0 0 55px rgba(255,255,255,.20);
-  animation:glassSwish 30s cubic-bezier(.22,.61,.36,1) infinite;
+  box-shadow:0 0 45px rgba(255,255,255,.10);
+  will-change:left,opacity;
 }
 .glass-swish::before{
-  content:"";position:absolute;inset:0 35%;
-  background:rgba(255,255,255,.48);
-  filter:blur(18px);
-}
-.glass-swish::after{
-  content:"";position:absolute;inset:0;
-  background:linear-gradient(90deg,transparent 20%,rgba(255,255,255,.24) 48%,transparent 76%);
+  content:"";
+  position:absolute;
+  inset:0 42%;
+  background:rgba(255,255,255,.18);
   filter:blur(22px);
 }
-@keyframes glassSwish{
-  0%,91%{left:-62%;opacity:0}
-  92%{opacity:.95}
-  98.5%{left:132%;opacity:.88}
+.glass-swish::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(
+    90deg,
+    transparent 22%,
+    rgba(255,255,255,.10) 49%,
+    transparent 78%
+  );
+  filter:blur(28px);
+}
+.glass-swish.is-sweeping{
+  animation:glassSwishNow 2.2s cubic-bezier(.22,.61,.36,1) forwards;
+}
+@keyframes glassSwishNow{
+  0%{left:-62%;opacity:0}
+  10%{opacity:.55}
+  88%{opacity:.48}
   100%{left:132%;opacity:0}
-}91%{opacity:0}92%{opacity:.72}98%{left:125%;opacity:.55}100%{left:125%;opacity:0}}
+}
+
 @media(max-width:1279px),(max-height:799px){.dashboard{transform:scale(var(--scale,1))}}

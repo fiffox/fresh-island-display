@@ -94,16 +94,17 @@ document.addEventListener("visibilitychange",()=>{if(!document.hidden)loadWeathe
 setTimeout(()=>location.reload(),6*60*60*1000);
 
 
+
+
 function runGlassSwish(){
   const sweep=document.querySelector(".glass-swish");
   if(!sweep)return;
   sweep.classList.remove("is-sweeping");
   void sweep.offsetWidth;
   sweep.classList.add("is-sweeping");
-  setTimeout(()=>sweep.classList.remove("is-sweeping"),2200);
+  window.setTimeout(()=>sweep.classList.remove("is-sweeping"),2600);
 }
 
-// Show one shortly after loading so the update is immediately obvious,
-// then repeat every 30 seconds.
-setTimeout(runGlassSwish,3000);
-setInterval(runGlassSwish,30000);
+// Immediate visual proof after loading, then every 30 seconds.
+window.setTimeout(runGlassSwish,1500);
+window.setInterval(runGlassSwish,30000);
