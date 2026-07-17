@@ -20,18 +20,14 @@ function updateClock(){
 }
 
 function animatedWeatherIcon(code,isDay=1){
-  const sun='<span class="sun-rays"></span><span class="sun-core"></span>';
-  const moon='<span class="moon-core"></span>';
-  const cloud='<span class="cloud-body"></span>';
-  const rain='<span class="drop d1"></span><span class="drop d2"></span><span class="drop d3"></span>';
-  const snow='<span class="flake f1">✦</span><span class="flake f2">✦</span><span class="flake f3">✦</span>';
-  if(code===0)return `<span class="wx-icon clear">${isDay?sun:moon}</span>`;
-  if(code===1||code===2)return `<span class="wx-icon partly">${isDay?sun:moon}${cloud}</span>`;
-  if(code===3||code===45||code===48)return `<span class="wx-icon cloudy">${cloud}</span>`;
-  if([51,53,55,56,57,61,63,65,66,67,80,81,82].includes(code))return `<span class="wx-icon rain">${cloud}${rain}</span>`;
-  if([71,73,75,77,85,86].includes(code))return `<span class="wx-icon snow">${cloud}${snow}</span>`;
-  if([95,96,99].includes(code))return `<span class="wx-icon storm">${cloud}<span class="bolt"></span>${rain}</span>`;
-  return `<span class="wx-icon cloudy">${cloud}</span>`;
+  let name="cloudy";
+  if(code===0) name=isDay?"clear-day":"clear-night";
+  else if(code===1||code===2) name=isDay?"partly-day":"partly-night";
+  else if(code===3||code===45||code===48) name="cloudy";
+  else if([51,53,55,56,57,61,63,65,66,67,80,81,82].includes(code)) name="rain";
+  else if([71,73,75,77,85,86].includes(code)) name="snow";
+  else if([95,96,99].includes(code)) name="storm";
+  return `<img class="weather-image" src="weather-icons/${name}.svg" alt="" aria-hidden="true">`;
 }
 
 function setWeatherAmbience(code,isDay){
@@ -96,3 +92,18 @@ updateClock();setInterval(updateClock,1000);fitDashboard();addEventListener("res
 loadWeather();setInterval(loadWeather,WEATHER_REFRESH_MS);
 document.addEventListener("visibilitychange",()=>{if(!document.hidden)loadWeather()});
 setTimeout(()=>location.reload(),6*60*60*1000);
+
+
+function runGlassSwish(){
+  const sweep=document.querySelector(".glass-swish");
+  if(!sweep)return;
+  sweep.classList.remove("is-sweeping");
+  void sweep.offsetWidth;
+  sweep.classList.add("is-sweeping");
+  setTimeout(()=>sweep.classList.remove("is-sweeping"),2200);
+}
+
+// Show one shortly after loading so the update is immediately obvious,
+// then repeat every 30 seconds.
+setTimeout(runGlassSwish,3000);
+setInterval(runGlassSwish,30000);

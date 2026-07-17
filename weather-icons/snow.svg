@@ -1,0 +1,4 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240">
+<defs><linearGradient id="c" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#fff"/><stop offset="1" stop-color="#a5b4c6"/></linearGradient><filter id="sh"><feDropShadow dx="0" dy="8" stdDeviation="8" flood-opacity=".32"/></filter></defs>
+<g filter="url(#sh)" fill="url(#c)"><ellipse cx="122" cy="111" rx="82" ry="40"/><circle cx="65" cy="113" r="34"/><circle cx="119" cy="75" r="51"/><circle cx="176" cy="108" r="41"/></g>
+<g fill="#eaf7ff" stroke="#9ed9ff" stroke-width="3"><path d="M67 165v38M50 175l34 18M84 175l-34 18"/><path d="M122 165v38M105 175l34 18M139 175l-34 18"/><path d="M177 165v38M160 175l34 18M194 175l-34 18"/></g></svg>
